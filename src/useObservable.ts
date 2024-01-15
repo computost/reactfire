@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useSyncExternalStore } from 'use-sync-external-store/shim';
 import { Observable } from 'rxjs';
 import { SuspenseSubject } from './SuspenseSubject';
 import { useSuspenseEnabledFromConfigAndContext } from './firebaseApp';
@@ -100,7 +99,8 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
     throw observable.firstEmission;
   }
 
-  const subscribe = React.useCallback((onStoreChange: () => void) => {
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
       const subscription = observable.subscribe({
         next: () => {
           onStoreChange();
@@ -116,14 +116,16 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
 
       return () => {
         subscription.unsubscribe();
-      }
-  }, [observable])
+      };
+    },
+    [observable]
+  );
 
   const getSnapshot = React.useCallback<() => ObservableStatus<T>>(() => {
     return observable.immutableStatus;
   }, [observable]);
 
-  const update = useSyncExternalStore(subscribe, getSnapshot);
+  const update = React.useSyncExternalStore(subscribe, getSnapshot);
 
   // modify the value if initialData exists
   if (!observable.hasValue && hasData) {
