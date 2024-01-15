@@ -18,7 +18,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "start": "firebase emulators:exec --project=rxfire-525a3 \"vitest --ui\"",
+    "start": "firebase emulators:exec --ui --project=rxfire-525a3 \"vitest --ui\"",
     "build": "tsc && vite build && npm run docs",
     "test": "firebase emulators:exec --project=rxfire-525a3 \"vitest\"",
     "test:firestore": "firebase emulators:exec --only firestore --ui --project=rxfire-525a3 \"vitest firestore\"",
@@ -36,7 +36,7 @@
     "docs:fork": "typedoc --options typedoc.json --gitRemote upstream && markdown-toc -i docs/use.md"
   },
   "peerDependencies": {
-    "firebase": "^9.0.0 || next",
+    "firebase": "^9.0.0 || ^10.0.0",
     "react": ">=16 || experimental"
   },
   "husky": {
@@ -87,8 +87,9 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "firebase": "^9.23.0",
-    "firebase-tools": "^12.4.0",
+    "firebase": "^10.7.1",
+    "firebase-functions": "^4.6.0",
+    "firebase-tools": "^13.0.3",
     "globalthis": "^1.0.3",
     "husky": "^8.0.3",
     "jest-environment-jsdom": "^29.5.0",
@@ -107,7 +108,7 @@
     "vitest": "^0.32.2"
   },
   "dependencies": {
-    "rxfire": "^6.0.3",
+    "rxfire": "^6.0.5",
     "rxjs": "^6.6.3 || ^7.0.1",
     "use-sync-external-store": "^1.2.0"
   }
